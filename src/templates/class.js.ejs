@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
 class <%= props.name %> extends Component {
-  
+  constructor(props) {
+    super(props)
+  }
   componentDidMount() {
 
   }
   render() {
-    return <p>Hey, a class component</p>
+    return <div>Hey, a class component</div>
   }
 }
 

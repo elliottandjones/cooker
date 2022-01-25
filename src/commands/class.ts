@@ -13,10 +13,11 @@ module.exports = {
 
     // console.log(parameters)
     const name = parameters.first || 'Component'
-    const directory = parameters.second || null
+    const extension = parameters.second || '.js'
+    const directory = parameters.third || null
     let path = ''
     directory ? (path = `${directory}${name}`) : (path = name)
-    const extension = path.includes('.js') || path.includes('.ts') ? '' : '.js'
+    // const extension = path.includes('.js') || path.includes('.ts') ? '' : '.js'
 
     await generate({
       template: 'class.js.ejs',

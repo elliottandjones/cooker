@@ -12,9 +12,13 @@ module.exports = {
       type: 'select',
       name: 'type',
       initial: 'Functional',
-      message: 'What type of Component? (Defaults to Functional Component)',
+      message: 'What type of Component?',
       choices: [
-        { name: 'Functional', message: 'Functional', hint: 'creates a react functional component' },
+        {
+          name: 'Functional',
+          message: 'Functional',
+          hint: 'creates a react functional component (Default)',
+        },
         { name: 'Class', message: 'Class', hint: 'creates a react class component' },
       ],
     }
@@ -24,6 +28,18 @@ module.exports = {
       initial: 'Component',
       message: 'What name are we giving this Component?',
     }
+    const componentExt = {
+      type: 'select',
+      name: 'extension',
+      initial: '.js',
+      message: 'What is the file extension of the Component?',
+      choices: [
+        { name: 'js', message: '.js', hint: 'creates a file ending in .js' },
+        { name: 'jsx', message: '.jsx', hint: 'creates a file ending in .jsx' },
+        { name: 'ts', message: '.ts', hint: 'creates a file ending in .ts' },
+        { name: 'tsx', message: '.tsx', hint: 'creates a file ending in .tsx' },
+      ],
+    }
     const componentDir = {
       type: 'input',
       name: 'where',
@@ -31,15 +47,16 @@ module.exports = {
       message: 'Where are we generating our Component?',
     }
     // ask a series of questions
-    const questions = [componentType, componentName, componentDir]
-    const { type, name, where } = await toolbox.prompt.ask(questions)
+    const questions = [componentType, componentName, componentExt, componentDir]
+    const { type, name, ext, where } = await toolbox.prompt.ask(questions)
 
     if (type === 'Functional') {
       return FunctionalComponent.run({
         ...toolbox,
         parameters: {
           first: name,
-          second: where,
+          second: ext,
+          third: where,
         },
       })
     }
@@ -48,12 +65,13 @@ module.exports = {
         ...toolbox,
         parameters: {
           first: name,
-          second: where,
+          second: ext,
+          third: where,
         },
       })
     }
 
-    console.log(`${name}, ${type}, ${where}, Gooo!`)
+    console.log(`${name}, ${type}, ${ext}, ${where}, Gooo!`)
     // print.info('')
   },
 }
