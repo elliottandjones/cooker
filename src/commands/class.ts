@@ -1,4 +1,5 @@
 import { GluegunToolbox } from 'gluegun'
+const generateDefaults = require('../common')
 
 module.exports = {
   name: 'class',
@@ -12,19 +13,14 @@ module.exports = {
     } = toolbox
 
     // console.log(parameters)
-    const name = parameters.first || 'Component'
-    const extension = parameters.second || '.js'
-    const directory = parameters.third || null
-    let path = ''
-    directory ? (path = `${directory}${name}`) : (path = name)
-    // const extension = path.includes('.js') || path.includes('.ts') ? '' : '.js'
+    const { name, directory, extension } = generateDefaults(parameters)
 
     await generate({
       template: 'class.js.ejs',
-      target: `${path}${extension}`,
+      target: `${directory.endsWith('/') ? directory : `${directory}/`}${name}${extension}`,
       props: { name },
     })
 
-    info(`Generated file at ${path}${extension}`)
+    info(`Generated file at ${directory}${name}${extension}`)
   },
 }

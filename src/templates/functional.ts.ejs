@@ -1,13 +1,13 @@
 import React from 'react'
 
-interface Props {
-  props: any;
+interface <%= props.name %>Props {
+  children: any;
 }
 
-const <%= props.name %> = (props: Props) => {
+const <%= props.name %> = (props: <%= props.name %>Props) => {
   return (
     <div>
-      Hey, a functional typescript component
+      Hey, a functional typescript component with {props.children}
     </div>
     )
 }

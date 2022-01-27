@@ -28,35 +28,35 @@ module.exports = {
       initial: 'Component',
       message: 'What name are we giving this Component?',
     }
-    const componentExt = {
+    const componentExtension = {
       type: 'select',
       name: 'extension',
       initial: '.js',
       message: 'What is the file extension of the Component?',
       choices: [
-        { name: 'js', message: '.js', hint: 'creates a file ending in .js' },
-        { name: 'jsx', message: '.jsx', hint: 'creates a file ending in .jsx' },
-        { name: 'ts', message: '.ts', hint: 'creates a file ending in .ts' },
-        { name: 'tsx', message: '.tsx', hint: 'creates a file ending in .tsx' },
+        { name: '.js', message: '.js', hint: 'creates a file ending in .js' },
+        { name: '.jsx', message: '.jsx', hint: 'creates a file ending in .jsx' },
+        { name: '.tsx', message: '.tsx', hint: 'creates a file ending in .tsx' },
+        { name: '.ts', message: '.ts', hint: 'creates a file ending in .ts' },
       ],
     }
-    const componentDir = {
+    const componentDirectory = {
       type: 'input',
-      name: 'where',
+      name: 'directory',
       initial: './',
       message: 'Where are we generating our Component?',
     }
     // ask a series of questions
-    const questions = [componentType, componentName, componentExt, componentDir]
-    const { type, name, ext, where } = await toolbox.prompt.ask(questions)
+    const questions = [componentType, componentName, componentExtension, componentDirectory]
+    const { type, name, extension, directory } = await toolbox.prompt.ask(questions)
 
     if (type === 'Functional') {
       return FunctionalComponent.run({
         ...toolbox,
         parameters: {
           first: name,
-          second: ext,
-          third: where,
+          second: extension,
+          third: directory,
         },
       })
     }
@@ -65,13 +65,13 @@ module.exports = {
         ...toolbox,
         parameters: {
           first: name,
-          second: ext,
-          third: where,
+          second: extension,
+          third: directory,
         },
       })
     }
 
-    console.log(`${name}, ${type}, ${ext}, ${where}, Gooo!`)
-    // print.info('')
+    // console.log(`${name}, ${type}, ${ext}, ${where}, Gooo!`)
+    // print.info(`${name}, ${type}, ${extension}, ${directory}, Gooo!`)
   },
 }
